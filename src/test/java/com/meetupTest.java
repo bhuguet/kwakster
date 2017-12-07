@@ -17,12 +17,19 @@ public class meetupTest {
 	
 	@Test
 	public void should_kwak() {
-		String kwak = message.kwak();
-		assertThat(kwak, equalTo("kwaked"));
+		assertThat(message.kwak(), equalTo("MessageQuacked"));
 	}
 	
 	@Test
 	public void should_delete_message() {
-		assertThat(message.delete(), equalTo("deleted"));
+		message.kwak();
+		assertThat(message.delete(), equalTo("MessageDeleted"));
+	}
+	
+	@Test
+	public void should_not_send_event_on_delete_of_deleted_message() {
+		message.kwak();
+		message.delete();
+		assertThat(message.delete(), equalTo(""));
 	}
 }
